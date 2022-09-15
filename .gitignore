@@ -19,8 +19,6 @@
 *.tar.gz
 *.rar
 
-.idea/
-*.iml
 out/
 *.bak
 
