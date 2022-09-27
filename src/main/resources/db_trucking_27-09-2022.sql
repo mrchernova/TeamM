@@ -16,41 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `base_orders`
---
-
-DROP TABLE IF EXISTS `base_orders`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `base_orders` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `order_id` int NOT NULL,
-  `driver_id` int NOT NULL,
-  `transport_id` int NOT NULL,
-  `organization_id` int NOT NULL,
-  `description` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `order_id_idx` (`order_id`),
-  KEY `driver_id_idx` (`driver_id`),
-  KEY `transport_id_idx` (`transport_id`),
-  KEY `organization_id_idx` (`organization_id`),
-  CONSTRAINT `bo_driver_id` FOREIGN KEY (`driver_id`) REFERENCES `drivers` (`id`),
-  CONSTRAINT `bo_order_id` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-  CONSTRAINT `bo_organization_id` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`id`),
-  CONSTRAINT `bo_transport_id` FOREIGN KEY (`transport_id`) REFERENCES `transport` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `base_orders`
---
-
-LOCK TABLES `base_orders` WRITE;
-/*!40000 ALTER TABLE `base_orders` DISABLE KEYS */;
-/*!40000 ALTER TABLE `base_orders` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `clients`
 --
 
@@ -141,6 +106,41 @@ LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 INSERT INTO `orders` VALUES (1,'Продукты',300.0,'Минск','Витебск',600.00,1,1),(2,'Шкаф',150.0,'Гомель','Гродно',250.00,2,1),(3,'Диван',350.0,'Гомель','Минск',200.00,3,1),(4,'Стол',16.0,'Брест','Могилев',160.00,2,1);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orders_base`
+--
+
+DROP TABLE IF EXISTS `orders_base`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `orders_base` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `order_id` int NOT NULL,
+  `driver_id` int NOT NULL,
+  `transport_id` int NOT NULL,
+  `organization_id` int NOT NULL,
+  `description` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `order_id_idx` (`order_id`),
+  KEY `driver_id_idx` (`driver_id`),
+  KEY `transport_id_idx` (`transport_id`),
+  KEY `organization_id_idx` (`organization_id`),
+  CONSTRAINT `bo_driver_id` FOREIGN KEY (`driver_id`) REFERENCES `drivers` (`id`),
+  CONSTRAINT `bo_order_id` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+  CONSTRAINT `bo_organization_id` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`id`),
+  CONSTRAINT `bo_transport_id` FOREIGN KEY (`transport_id`) REFERENCES `transport` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orders_base`
+--
+
+LOCK TABLES `orders_base` WRITE;
+/*!40000 ALTER TABLE `orders_base` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orders_base` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -253,7 +253,7 @@ CREATE TABLE `transport` (
   `id` int NOT NULL AUTO_INCREMENT,
   `model` varchar(45) NOT NULL,
   `vehicle_type` varchar(45) NOT NULL,
-  `crrying_capacity` decimal(5,0) NOT NULL,
+  `carrying_capacity` decimal(5,0) NOT NULL,
   `number_plate` varchar(9) NOT NULL,
   `status_id` int NOT NULL,
   `organization_id` int NOT NULL,
@@ -313,4 +313,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-25 13:52:37
+-- Dump completed on 2022-09-27 14:27:47
