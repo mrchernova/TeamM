@@ -1,5 +1,12 @@
 package by.trucking.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Driver {
     private int id;
     private String name;
@@ -7,25 +14,5 @@ public class Driver {
     private Organization organization;
     private Status status;
 
-    public Driver() {
-    }
-
-    public Driver(int id, String name, String surname) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-    }
-
-
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+   
 }
