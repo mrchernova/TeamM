@@ -55,6 +55,9 @@ public class OrderRepositoryDBImpl implements OrderRepository {
                             rs.getString(4),
                             rs.getString(5),
                             rs.getFloat(6));
+                 //   rs.getInt(7),
+                 //   rs.getInt(8));
+                    
 
                 } else {
                     return new Order();
