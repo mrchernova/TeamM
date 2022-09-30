@@ -27,4 +27,9 @@ public class Order {
         this.price = price;
        
     }
+
+    public Order(int id, String cargo) {
+        this.id = id;
+        this.cargo = cargo;
+    }
 }

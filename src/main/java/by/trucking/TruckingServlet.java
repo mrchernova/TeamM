@@ -43,5 +43,20 @@ public class TruckingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.doPost(request, response);
+        int id = Integer.parseInt(request.getParameter("id"));
+        String cargo = request.getParameter("cargo");
+
+
+        Order order = new Order(id,cargo);
+        //os.save(order);
+        try {
+            os.getById(2);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        PrintWriter writer = response.getWriter();
+        writer.write("order saved");
+        writer.flush();
     }
 }
