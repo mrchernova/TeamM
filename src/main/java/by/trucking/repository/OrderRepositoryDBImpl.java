@@ -66,6 +66,28 @@ public class OrderRepositoryDBImpl implements OrderRepository {
         }
     }
 
+    @Override
+    public List<Order> getOrders() {
+        List<Order> orderList = new ArrayList<>();
+
+        try (Statement postman = ConnectionDB.connection.createStatement();
+             ResultSet rs = postman.executeQuery("SELECT * FROM orders");) {
+
+            while (rs.next()) {
+                Order o = new Order(rs.getInt("id"),
+                        rs.getString("cargo"),
+                        rs.getFloat("weight"),
+                        rs.getString("departure"),
+                        rs.getString("destination"),
+                        rs.getFloat("price"));
+                orderList.add(o);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orderList;
+    }
+
     /* getByCargo исправить*/
     @Override
     public List<Order> getByCargo(String cargo) {

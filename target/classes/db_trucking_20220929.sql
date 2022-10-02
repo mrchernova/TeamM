@@ -171,30 +171,6 @@ INSERT INTO `organizations` VALUES (1,'ИП Перевозки',NULL,NULL,NULL,3
 UNLOCK TABLES;
 
 --
--- Table structure for table `roles`
---
-
-DROP TABLE IF EXISTS `roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `roles` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `role` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `roles`
---
-
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'administrator'),(2,'client'),(3,'organization');
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `transport`
 --
 
@@ -235,9 +211,7 @@ CREATE TABLE `users` (
   `login` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `role_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `role_id_idx` (`role_id`),
-  CONSTRAINT `u_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -260,4 +234,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-28 16:51:42
+-- Dump completed on 2022-09-29  9:49:31
