@@ -15,9 +15,18 @@ public class OrderServiceImpl implements OrderService {
         this.orderRepository = orderRepository;
     }
 
+    public OrderServiceImpl() {
+
+    }
+
     @Override
     public Order getById(int id) throws SQLException {
         return orderRepository.getById(id);
+    }
+
+    @Override
+    public List<Order> getOrders() {
+        return orderRepository.getOrders();
     }
 
     @Override

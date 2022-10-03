@@ -13,6 +13,9 @@ public interface OrderService {
 
     Order getById(int id) throws SQLException;
 
+
+    List<Order> getOrders();
+
     List<Order> getByCargo(String cargo);
 
     List<Order> getByWeight(String weight);
