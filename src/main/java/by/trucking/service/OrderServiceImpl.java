@@ -12,6 +12,7 @@ public class OrderServiceImpl implements OrderService {
     OrderRepository orderRepository;
 
     public OrderServiceImpl(OrderRepository orderRepository) {
+
         this.orderRepository = orderRepository;
     }
 
@@ -26,6 +27,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getOrders() {
+
         return orderRepository.getOrders();
     }
 

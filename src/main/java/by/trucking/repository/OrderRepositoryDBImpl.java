@@ -2,6 +2,8 @@ package by.trucking.repository;
 
 import by.trucking.model.Order;
 import by.trucking.service.ConnectionDB;
+import by.trucking.util.DBUtil;
+import jdk.jshell.execution.Util;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -87,6 +89,31 @@ public class OrderRepositoryDBImpl implements OrderRepository {
         }
         return orderList;
     }
+
+//   @Override
+//   public List<Order> getOrders() {
+//        List<Order> orders = new ArrayList<Order>();
+//        try {
+//            Statement statement = DBUtil.getConnection().createStatement();
+//            ResultSet rs = statement.executeQuery("select * from orders");
+//            while (rs.next()) {
+//                Order order = new Order();
+//                order.setId(rs.getInt("id"));
+//                order.setCargo(rs.getString("cargo"));
+//                order.setWeight(rs.getFloat("weight"));
+//                order.setDeparture(rs.getString("departure"));
+//                order.setDestination(rs.getString("destination"));
+//                order.setPrice(rs.getFloat("price"));
+//                orders.add(order);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return orders;
+//    }
+
+
 
     /* getByCargo исправить*/
     @Override

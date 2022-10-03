@@ -14,10 +14,10 @@ import java.util.List;
 
 public class GetOrdersServlet extends HttpServlet {
 
-    private OrderService orderService;
+    private OrderService orderServiceImpl;
 
     public GetOrdersServlet(){
-        orderService = new OrderServiceImpl();
+        orderServiceImpl = new OrderServiceImpl();
 
     }
 
@@ -26,7 +26,7 @@ public class GetOrdersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter writer = response.getWriter();
-        List<Order> orders = orderService.getOrders();
+        List<Order> orders = orderServiceImpl.getOrders();
 
         try {
             writer.println("orders: ");
@@ -38,5 +38,8 @@ public class GetOrdersServlet extends HttpServlet {
         } finally {
             writer.close();
         }
+
     }
+
+
 }

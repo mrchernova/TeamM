@@ -35,5 +35,35 @@
     <url-pattern>/health</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>MainServlet</servlet-name>
+    <servlet-class>by.trucking.MainServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>MainServlet</servlet-name>
+    <url-pattern>/hi</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>getOrders</servlet-name>
+    <servlet-class>by.trucking.GetOrdersServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>getOrders</servlet-name>
+    <url-pattern>/getorders</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+  <servlet-name>OrderController</servlet-name>
+  <servlet-class>by.trucking.controller.OrderController</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>OrderController</servlet-name>
+<url-pattern>/oc</url-pattern>
+</servlet-mapping>
 
 </web-app>
