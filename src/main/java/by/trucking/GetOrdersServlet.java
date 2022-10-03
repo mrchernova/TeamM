@@ -1,6 +1,7 @@
 package by.trucking;
 
 import by.trucking.model.Order;
+import by.trucking.repository.OrderRepositoryDBImpl;
 import by.trucking.service.OrderService;
 import by.trucking.service.OrderServiceImpl;
 
@@ -14,31 +15,27 @@ import java.util.List;
 
 public class GetOrdersServlet extends HttpServlet {
 
-    private OrderService orderServiceImpl;
+    private final OrderService os = new OrderServiceImpl(new OrderRepositoryDBImpl());
 
-    public GetOrdersServlet(){
-        orderServiceImpl = new OrderServiceImpl();
-
-    }
-
-
-
+      @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        PrintWriter writer = response.getWriter();
-        List<Order> orders = orderServiceImpl.getOrders();
 
-        try {
-            writer.println("orders: ");
-            for (int i = 0; i < orders.size() ; i++) {
-                writer.println(orders.get(i));
-            }
+        List<Order> orders = os.getOrders();
+  //      PrintWriter writer = response.getWriter();
+//        try {
+//            writer.println("orders: ");
+//            for (int i = 0; i < orders.size(); i++) {
+//                writer.println(orders.get(i));
+//            }
+//            writer.println();
+//            writer.flush();
+//        } finally {
+//            writer.close();
+//        }
 
-            writer.println();
-        } finally {
-            writer.close();
-        }
-
+          PrintWriter writer = response.getWriter();
+          writer.write(os.getOrders().toString());
+          writer.flush();
     }
 
 

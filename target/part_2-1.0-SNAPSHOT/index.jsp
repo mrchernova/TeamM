@@ -1,6 +1,7 @@
 <html>
 <body>
 <h2>Hello World!!</h2>
-<%--<jsp:forward page="/OrderController?action=listOrder" />--%>
+
+<%--<jsp:forward page="/getorders"/>--%>
 </body>
 </html>

@@ -8,14 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import by.trucking.model.Order;
-import by.trucking.util.DBUtil;
+
 
 public class OrderDao {
     private Connection connection;
 
-    public OrderDao() {
-        connection = DBUtil.getConnection();
-    }
+//    public OrderDao() {
+//        connection = DBUtil.getConnection();
+//    }
 
     public void addOrder(Order order) {
     /*

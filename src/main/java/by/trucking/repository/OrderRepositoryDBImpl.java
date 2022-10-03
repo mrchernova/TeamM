@@ -2,13 +2,9 @@ package by.trucking.repository;
 
 import by.trucking.model.Order;
 import by.trucking.service.ConnectionDB;
-import by.trucking.util.DBUtil;
-import jdk.jshell.execution.Util;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,9 +42,11 @@ public class OrderRepositoryDBImpl implements OrderRepository {
 
     @Override
     public Order getById(int id) throws SQLException {
-        try (PreparedStatement ps = ConnectionDB.connection.prepareStatement("SELECT * FROM orders WHERE id=?");) {
+
+        try (Connection connection = ConnectionDB.getConnect();
+             PreparedStatement ps = connection.prepareStatement("SELECT * FROM orders WHERE id=?")) {
             ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery();) {
+            try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return new Order(
                             rs.getInt(1),
@@ -57,9 +55,9 @@ public class OrderRepositoryDBImpl implements OrderRepository {
                             rs.getString(4),
                             rs.getString(5),
                             rs.getFloat(6));
-                 //   rs.getInt(7),
-                 //   rs.getInt(8));
-                    
+                    //   rs.getInt(7),
+                    //   rs.getInt(8));
+
 
                 } else {
                     return new Order();
@@ -71,10 +69,9 @@ public class OrderRepositoryDBImpl implements OrderRepository {
     @Override
     public List<Order> getOrders() {
         List<Order> orderList = new ArrayList<>();
-
-        try (Statement postman = ConnectionDB.connection.createStatement();
-             ResultSet rs = postman.executeQuery("SELECT * FROM orders");) {
-
+        try (Connection connection = ConnectionDB.getConnect();
+             Statement postman = connection.createStatement();
+             ResultSet rs = postman.executeQuery("SELECT * FROM orders")) {
             while (rs.next()) {
                 Order o = new Order(rs.getInt("id"),
                         rs.getString("cargo"),
@@ -114,33 +111,10 @@ public class OrderRepositoryDBImpl implements OrderRepository {
 //    }
 
 
-
-    /* getByCargo исправить*/
     @Override
     public List<Order> getByCargo(String cargo) {
         List<Order> orderList = new ArrayList<>();
-        try (Statement postman = ConnectionDB.connection.createStatement();
-             ResultSet rs = postman.executeQuery("SELECT * FROM orders");) {
-
-
-            while (rs.next()) {
-                Order o = new Order(rs.getInt("id"),
-                        rs.getString("cargo"),
-                        rs.getFloat("weight"),
-                        rs.getString("departure"),
-                        rs.getString("destination"),
-                        rs.getFloat("price"));
-                orderList.add(o);
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } finally {
-
-            return orderList;
-        }
-
+        return orderList;
     }
-
 
 }
