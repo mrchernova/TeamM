@@ -1,7 +1,5 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
@@ -12,17 +10,10 @@
 
 
 
+
   <request-character-encoding>UTF-8</request-character-encoding>
 
-  <servlet>
-    <servlet-name>TruckingAdmin</servlet-name>
-    <servlet-class>by.trucking.TruckingServlet</servlet-class>
-  </servlet>
 
-  <servlet-mapping>
-    <servlet-name>TruckingAdmin</servlet-name>
-    <url-pattern>/trucking/orders/*</url-pattern>
-  </servlet-mapping>
 
 
   <servlet>
@@ -36,34 +27,25 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>MainServlet</servlet-name>
-    <servlet-class>by.trucking.MainServlet</servlet-class>
+    <servlet-name>getAllOrders</servlet-name>
+    <servlet-class>by.trucking.controller.GetAllOrders</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>MainServlet</servlet-name>
-    <url-pattern>/hi</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>getOrders</servlet-name>
-    <servlet-class>by.trucking.GetOrdersServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>getOrders</servlet-name>
-    <url-pattern>/getorders</url-pattern>
+    <servlet-name>getAllOrders</servlet-name>
+    <url-pattern>/go</url-pattern>
   </servlet-mapping>
 
 
   <servlet>
-  <servlet-name>OrderController</servlet-name>
-  <servlet-class>by.trucking.controller.OrderController</servlet-class>
-</servlet>
+    <servlet-name>spgg</servlet-name>
+    <servlet-class>by.trucking.controller.GetOrderById</servlet-class>
+    <load-on-startup>0</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>spgg</servlet-name>
+    <url-pattern>/bot</url-pattern>
+  </servlet-mapping>
 
-<servlet-mapping>
-<servlet-name>OrderController</servlet-name>
-<url-pattern>/oc</url-pattern>
-</servlet-mapping>
 
 </web-app>

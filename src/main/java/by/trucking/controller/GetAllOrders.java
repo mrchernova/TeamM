@@ -1,4 +1,4 @@
-package by.trucking;
+package by.trucking.controller;
 
 import by.trucking.model.Order;
 import by.trucking.repository.OrderRepositoryDBImpl;
@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
-public class GetOrdersServlet extends HttpServlet {
+public class GetAllOrders extends HttpServlet {
 
     private final OrderService os = new OrderServiceImpl(new OrderRepositoryDBImpl());
 
@@ -21,20 +20,15 @@ public class GetOrdersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         List<Order> orders = os.getOrders();
-  //      PrintWriter writer = response.getWriter();
-//        try {
-//            writer.println("orders: ");
-//            for (int i = 0; i < orders.size(); i++) {
-//                writer.println(orders.get(i));
-//            }
-//            writer.println();
-//            writer.flush();
-//        } finally {
-//            writer.close();
-//        }
-
-          PrintWriter writer = response.getWriter();
-          writer.write(os.getOrders().toString());
+        PrintWriter writer = response.getWriter();
+        try {
+            for (int i = 0; i < orders.size(); i++) {
+                writer.println(orders.get(i));
+            }
+            writer.println();
+        } finally {
+            writer.close();
+        }
           writer.flush();
     }
 
