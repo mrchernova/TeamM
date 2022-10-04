@@ -3,5 +3,14 @@ package by.trucking.model;
 public enum Status {
     AVALIABLE,
     NOT_AVALIABLE,
-    BUSY
+    BUSY,
+    UNDEFINED;
+
+    public static Status getByOrdinal(int ordinal) {
+        Status[] values = Status.values();
+        if(ordinal >= values.length || ordinal < 0) {
+            return UNDEFINED;
+        }
+        return values[ordinal];
+    }
 }

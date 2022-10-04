@@ -14,5 +14,7 @@ public class Client {
     private String contact;
     private User user;
 
-   
+    public Client(int id) {
+        this.id = id;
+    }
 }

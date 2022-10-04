@@ -11,9 +11,12 @@ public class OrderServiceImpl implements OrderService {
 
     OrderRepository orderRepository;
 
-    public OrderServiceImpl(OrderRepository orderRepository) {
+    ClientService clientService;
+
+    public OrderServiceImpl(OrderRepository orderRepository, ClientService clientService) {
 
         this.orderRepository = orderRepository;
+        this.clientService = clientService;
     }
 
     public OrderServiceImpl() {
@@ -27,8 +30,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getOrders() {
-
-        return orderRepository.getOrders();
+        List<Order> orders = orderRepository.getOrders();
+        orders.forEach(order -> order.setClient(clientService.getById(order.getClient().getId())));
+        return orders;
     }
 
     @Override

@@ -1,7 +1,9 @@
 package by.trucking.repository;
 
+import by.trucking.model.Client;
 import by.trucking.model.Order;
-import by.trucking.service.ConnectionDB;
+import by.trucking.model.Status;
+import by.trucking.utils.ConnectionDB;
 
 
 import java.sql.*;
@@ -78,7 +80,9 @@ public class OrderRepositoryDBImpl implements OrderRepository {
                         rs.getFloat("weight"),
                         rs.getString("departure"),
                         rs.getString("destination"),
-                        rs.getFloat("price"));
+                        rs.getFloat("price"),
+                        new Client(rs.getInt("client_id")),
+                        Status.getByOrdinal(rs.getInt("status_id")));
                 orderList.add(o);
             }
         } catch (SQLException e) {
