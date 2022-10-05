@@ -11,6 +11,8 @@ public interface OrderService {
 
     Order edit(Order order);
 
+    boolean delete(int id);
+
     Order getById(int id) throws SQLException;
 
 
@@ -23,6 +25,4 @@ public interface OrderService {
     List<Order> getByDeparture(String daparture);
 
     List<Order> getByDestination(String destination);
-
-    boolean delete(int id);
 }

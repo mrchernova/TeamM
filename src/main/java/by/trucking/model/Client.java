@@ -10,11 +10,12 @@ import lombok.NoArgsConstructor;
 public class Client {
 
     private int id;
-    private String title;
     private String contact;
+    private String title;
     private User user;
 
     public Client(int id) {
         this.id = id;
     }
+    //public Client(String title) {        this.title = title;    } // ??
 }

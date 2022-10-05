@@ -31,7 +31,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getOrders() {
         List<Order> orders = orderRepository.getOrders();
-        orders.forEach(order -> order.setClient(clientService.getById(order.getClient().getId())));
+     //   orders.forEach(order -> order.setClient(clientService.getById(order.getClient().getId())));
+
         return orders;
     }
 
@@ -51,6 +52,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public boolean delete(int id) {
+        return false;
+    }
+
+    @Override
     public List<Order> getByWeight(String weight) {
         return null;
     }
@@ -63,11 +69,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getByDestination(String destination) {
         return null;
-    }
-
-    @Override
-    public boolean delete(int id) {
-        return false;
     }
 }
 

@@ -23,57 +23,17 @@ public class OrderRepositoryDBImpl implements OrderRepository {
     }
 
     @Override
-    public List<Order> getByWeight(String weight) {
-        return null;
-    }
-
-    @Override
-    public List<Order> getByDeparture(String daparture) {
-        return null;
-    }
-
-    @Override
-    public List<Order> getByDestination(String destination) {
-        return null;
-    }
-
-    @Override
     public boolean delete(int id) {
         return false;
     }
 
-    @Override
-    public Order getById(int id) throws SQLException {
-
-        try (Connection connection = ConnectionDB.getConnect();
-             PreparedStatement ps = connection.prepareStatement("SELECT * FROM orders WHERE id=?")) {
-            ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return new Order(
-                            rs.getInt(1),
-                            rs.getString(2),
-                            rs.getFloat(3),
-                            rs.getString(4),
-                            rs.getString(5),
-                            rs.getFloat(6));
-                    //   rs.getInt(7),
-                    //   rs.getInt(8));
-
-
-                } else {
-                    return new Order();
-                }
-            }
-        }
-    }
 
     @Override
     public List<Order> getOrders() {
         List<Order> orderList = new ArrayList<>();
         try (Connection connection = ConnectionDB.getConnect();
-             Statement postman = connection.createStatement();
-             ResultSet rs = postman.executeQuery("SELECT * FROM orders")) {
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery("SELECT * FROM orders")) {
             while (rs.next()) {
                 Order o = new Order(rs.getInt("id"),
                         rs.getString("cargo"),
@@ -91,34 +51,49 @@ public class OrderRepositoryDBImpl implements OrderRepository {
         return orderList;
     }
 
-//   @Override
-//   public List<Order> getOrders() {
-//        List<Order> orders = new ArrayList<Order>();
-//        try {
-//            Statement statement = DBUtil.getConnection().createStatement();
-//            ResultSet rs = statement.executeQuery("select * from orders");
-//            while (rs.next()) {
-//                Order order = new Order();
-//                order.setId(rs.getInt("id"));
-//                order.setCargo(rs.getString("cargo"));
-//                order.setWeight(rs.getFloat("weight"));
-//                order.setDeparture(rs.getString("departure"));
-//                order.setDestination(rs.getString("destination"));
-//                order.setPrice(rs.getFloat("price"));
-//                orders.add(order);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return orders;
-//    }
+    @Override
+    public Order getById(int id) throws SQLException {
+        try (Connection connection = ConnectionDB.getConnect();
+             PreparedStatement ps = connection.prepareStatement("SELECT * FROM orders WHERE id=?")) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Order(
+                            rs.getInt(1),
+                            rs.getString(2),
+                            rs.getFloat(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getFloat(6),
+                            new Client(rs.getInt(7)),
+                            Status.getByOrdinal(rs.getInt(8)));
+                } else {
+                    return new Order();
+                }
+            }
+        }
+    }
 
 
     @Override
     public List<Order> getByCargo(String cargo) {
         List<Order> orderList = new ArrayList<>();
         return orderList;
+    }
+
+    @Override
+    public List<Order> getByWeight(String weight) {
+        return null;
+    }
+
+    @Override
+    public List<Order> getByDeparture(String daparture) {
+        return null;
+    }
+
+    @Override
+    public List<Order> getByDestination(String destination) {
+        return null;
     }
 
 }

@@ -12,4 +12,8 @@ public class User {
     private String login;
     private String password;
     private Role role;
+
+    public User(int id) {
+        this.id = id;
+    }
 }
