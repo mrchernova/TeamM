@@ -24,24 +24,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getById(int id) throws SQLException {
-        return orderRepository.getById(id);
-    }
-
-    @Override
-    public List<Order> getOrders() {
-        List<Order> orders = orderRepository.getOrders();
-     //   orders.forEach(order -> order.setClient(clientService.getById(order.getClient().getId())));
-
-        return orders;
-    }
-
-    @Override
-    public List<Order> getByCargo(String cargo) {
-        return orderRepository.getByCargo(cargo);
-    }
-
-    @Override
     public Order save(Order order) {
         return null;
     }
@@ -54,6 +36,23 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean delete(int id) {
         return false;
+    }
+
+    @Override
+    public List<Order> getOrders() {
+        List<Order> orders = orderRepository.getOrders();
+        //   orders.forEach(order -> order.setClient(clientService.getById(order.getClient().getId())));
+        return orders;
+    }
+
+    @Override
+    public Order getById(int id) throws SQLException {
+        return orderRepository.getById(id);
+    }
+
+    @Override
+    public List<Order> getByCargo(String cargo) {
+        return orderRepository.getByCargo(cargo);
     }
 
     @Override

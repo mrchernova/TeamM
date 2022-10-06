@@ -7,11 +7,16 @@ import java.util.List;
 
 public interface UserRepository {
     User save(User user);
+
     User edit(User user);
-    User delete(User user);
+
+    boolean delete(int id);
 
     User getById(int id) throws SQLException;
+
     List<User> getUsers();
+
     List<User> getByLogin();
+
     List<User> getByRole();
 }

@@ -33,6 +33,7 @@ public class OrderRepositoryDBImpl implements OrderRepository {
         List<Order> orderList = new ArrayList<>();
         try (Connection connection = ConnectionDB.getConnect();
              Statement statement = connection.createStatement();
+           //  ResultSet rs = statement.executeQuery("SELECT * FROM orders,clients INNER JOIN clients ON orders.client_id = clients.id ")) {
              ResultSet rs = statement.executeQuery("SELECT * FROM orders")) {
             while (rs.next()) {
                 Order o = new Order(rs.getInt("id"),
