@@ -13,7 +13,24 @@ import java.util.List;
 public class OrderRepositoryDBImpl implements OrderRepository {
 
     @Override
+    /**
+     * Поле status_id при создании заказа будет всегда AVALIABLE
+     * Поле client_id будет подставлятся автоматически, так так уже известно
+     */
     public Order save(Order order) {
+        try (Connection connection = ConnectionDB.getConnect();
+             PreparedStatement ps = connection.prepareStatement(
+                     "INSERT INTO orders (description,weight,departure,destination,price,status_id,client_id) values (?,?,?,?,?," + Status.AVALIABLE + ",0)"
+             )) {
+            ps.setString(1, order.getDescription());
+            ps.setFloat(2, order.getWeight());
+            ps.setString(3, order.getDeparture());
+            ps.setString(4, order.getDestination());
+            ps.setFloat(5, order.getPrice());
+            ps.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -33,7 +50,7 @@ public class OrderRepositoryDBImpl implements OrderRepository {
         List<Order> orderList = new ArrayList<>();
         try (Connection connection = ConnectionDB.getConnect();
              Statement statement = connection.createStatement();
-           //  ResultSet rs = statement.executeQuery("SELECT * FROM orders,clients INNER JOIN clients ON orders.client_id = clients.id ")) {
+             //  ResultSet rs = statement.executeQuery("SELECT * FROM orders,clients INNER JOIN clients ON orders.client_id = clients.id ")) {
              ResultSet rs = statement.executeQuery("SELECT * FROM orders")) {
             while (rs.next()) {
                 Order o = new Order(rs.getInt("id"),
