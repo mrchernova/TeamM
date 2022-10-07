@@ -13,6 +13,8 @@ public class OrdersBase {
     private Driver driver;
     private Transport transport;
     private Organization organization;
+    private String description;
+
 
 
 
