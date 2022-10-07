@@ -36,7 +36,7 @@ public class OrderController extends HttpServlet {
             for (int i = 0; i < orders.size(); i++) {
 
                 writer.println(orders.get(i).getId());
-                writer.println(orders.get(i).getCargo());
+                writer.println(orders.get(i).getDescription());
                 writer.println(orders.get(i).getWeight());
                 writer.println(orders.get(i).getDeparture());
                 writer.println(orders.get(i).getDestination());

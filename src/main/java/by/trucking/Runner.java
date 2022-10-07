@@ -20,7 +20,7 @@ public class Runner {
 
         for (int i = 0; i < orders.size(); i++) {
             System.out.println(orders.get(i).getId());
-            System.out.println(orders.get(i).getCargo());
+            System.out.println(orders.get(i).getDescription());
             System.out.println(orders.get(i).getWeight());
             System.out.println(orders.get(i).getDeparture());
             System.out.println(orders.get(i).getDestination());
