@@ -15,7 +15,7 @@ public class OrderRepositoryDBImpl implements OrderRepository {
     @Override
     /**
      * Поле status_id при создании заказа будет всегда AVALIABLE
-     * Поле client_id будет подставлятся автоматически, так так уже известно
+     * Поле client_id будет подставляться автоматически, так так уже известно
      */
     public Order save(Order order) {
         try (Connection connection = ConnectionDB.getConnect();
@@ -105,7 +105,7 @@ public class OrderRepositoryDBImpl implements OrderRepository {
     }
 
     @Override
-    public List<Order> getByDeparture(String daparture) {
+    public List<Order> getByDeparture(String departure) {
         return null;
     }
 
@@ -114,4 +114,8 @@ public class OrderRepositoryDBImpl implements OrderRepository {
         return null;
     }
 
+    @Override
+    public List<Order> getByPrice(String price) {
+        return null;
+    }
 }

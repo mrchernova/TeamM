@@ -61,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getByDeparture(String daparture) {
+    public List<Order> getByDeparture(String departure) {
         return null;
     }
 
@@ -69,6 +69,9 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getByDestination(String destination) {
         return null;
     }
+
+    @Override
+    public List<Order> getByPrice(String price) {       return null;    }
 }
 
 

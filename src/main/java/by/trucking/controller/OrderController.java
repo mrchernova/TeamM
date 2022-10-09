@@ -32,19 +32,33 @@ public class OrderController extends HttpServlet {
 
         response.setHeader("Content-Type", "text/html;charset=UTF-8");
         PrintWriter writer = response.getWriter();
+
+        writer.println("<center><table border=\"1\" style=\"width:60%\" >");
+        writer.println("<tr>" +
+                "<th>id</th>" +
+                "<th>description</th>" +
+                "<th>weight</th>" +
+                "<th>departure</th>" +
+                "<th>destination</th>" +
+                "<th>price</th>" +
+                "<th>client_id</th>" +
+                "<th>status_id</th>" +
+                "</tr>");
+
         try {
             for (int i = 0; i < orders.size(); i++) {
 
-                writer.println(orders.get(i).getId());
-                writer.println(orders.get(i).getDescription());
-                writer.println(orders.get(i).getWeight());
-                writer.println(orders.get(i).getDeparture());
-                writer.println(orders.get(i).getDestination());
-                writer.println(cs.getById(orders.get(i).getClient().getId()).getTitle());
-                writer.println(orders.get(i).getStatus());
+                writer.println("<tr><td>" + orders.get(i).getId() + "</td>");
+                writer.println("<td>" + orders.get(i).getDescription()+"</td>");
+                writer.println("<td>" + orders.get(i).getWeight() + "</td>");
+                writer.println("<td>" + orders.get(i).getDeparture() + "</td>");
+                writer.println("<td>" + orders.get(i).getDestination() + "</td>");
+                writer.println("<td>" + orders.get(i).getPrice() + "</td>");
+                writer.println("<td>" + cs.getById(orders.get(i).getClient().getId()).getTitle() + "</td>");
+                writer.println("<td>" + orders.get(i).getStatus() + "</td></tr>");
                 writer.write("</br>");
             }
-
+            writer.println("</table>");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -53,10 +67,26 @@ public class OrderController extends HttpServlet {
         writer.flush();
     }
 
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        request.setAttribute("result", result);
-//        request.getRequestDispatcher("/WEB-INF/result.jsp").forward(request, response);
+        response.setContentType("text/html");
+        Order order = new Order();
+        PrintWriter writer = response.getWriter();
+        writer.println("<table border=" + 1 + "><tr><td>lalala");
+        //  order.setDescription(request.getParameter("description"));
+        //  order.setWeight(Float.parseFloat(request.getParameter("weight")));
+        //    order.setDeparture(request.getParameter("departure"));
+        //   order.setDestination(request.getParameter("destination"));
+        order.setPrice(Float.parseFloat(request.getParameter("price")));
+        //order.setClient(Integer.parseInt(request.getParameter("client_id")));
+        //order.setStatus(Integer.parseInt(request.getParameter("status_id")));
+        //order.setClient(request.setAttribute("client_id", client.getId()));
+        writer.println("</td></tr></table>");
+        os.save(order);
+
+        writer.flush();
+
     }
 }
 
