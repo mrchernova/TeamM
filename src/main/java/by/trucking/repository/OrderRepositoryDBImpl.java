@@ -31,7 +31,7 @@ public class OrderRepositoryDBImpl implements OrderRepository {
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return null;
+return order;
     }
 
     @Override

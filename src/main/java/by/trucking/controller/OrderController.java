@@ -1,12 +1,15 @@
+//https://metanit.com/java/javaee/5.3.php
 package by.trucking.controller;
 
-import by.trucking.model.Client;
 import by.trucking.model.Order;
 import by.trucking.repository.ClientRepositoryDBImpl;
 import by.trucking.repository.OrderRepositoryDBImpl;
 import by.trucking.service.*;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,18 +19,31 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/getorders")
+@WebServlet("/orders")
 public class OrderController extends HttpServlet {
 
-    private final OrderService os = new OrderServiceImpl(
-            new OrderRepositoryDBImpl(), new ClientServiceImpl());
+    public static final OrderService os = new OrderServiceImpl(new OrderRepositoryDBImpl(), new ClientServiceImpl());
 
-    private final ClientService cs = new ClientServiceImpl(
-            new ClientRepositoryDBImpl(), new UserServiceImpl());
+    private final ClientService cs = new ClientServiceImpl(new ClientRepositoryDBImpl(), new UserServiceImpl());
+
+
+
+    @Override
+    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+        System.out.println(req);
+        super.service(req, res);
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        List<Order> orders = os.getOrders();
+        request.setAttribute("orders", orders);
+        RequestDispatcher rd = request.getRequestDispatcher("/orders.jsp");
+        rd.forward(request, response);
+
+
+        /*
         List<Order> orders = os.getOrders();
 
         response.setHeader("Content-Type", "text/html;charset=UTF-8");
@@ -49,7 +65,7 @@ public class OrderController extends HttpServlet {
             for (int i = 0; i < orders.size(); i++) {
 
                 writer.println("<tr><td>" + orders.get(i).getId() + "</td>");
-                writer.println("<td>" + orders.get(i).getDescription()+"</td>");
+                writer.println("<td>" + orders.get(i).getDescription() + "</td>");
                 writer.println("<td>" + orders.get(i).getWeight() + "</td>");
                 writer.println("<td>" + orders.get(i).getDeparture() + "</td>");
                 writer.println("<td>" + orders.get(i).getDestination() + "</td>");
@@ -65,28 +81,45 @@ public class OrderController extends HttpServlet {
             writer.close();
         }
         writer.flush();
+
+         */
     }
 
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        Order order = new Order();
-        PrintWriter writer = response.getWriter();
-        writer.println("<table border=" + 1 + "><tr><td>lalala");
-        //  order.setDescription(request.getParameter("description"));
-        //  order.setWeight(Float.parseFloat(request.getParameter("weight")));
-        //    order.setDeparture(request.getParameter("departure"));
-        //   order.setDestination(request.getParameter("destination"));
-        order.setPrice(Float.parseFloat(request.getParameter("price")));
-        //order.setClient(Integer.parseInt(request.getParameter("client_id")));
-        //order.setStatus(Integer.parseInt(request.getParameter("status_id")));
-        //order.setClient(request.setAttribute("client_id", client.getId()));
-        writer.println("</td></tr></table>");
-        os.save(order);
 
-        writer.flush();
+        boolean filled = request.getAttribute("filled") != null && (boolean) request.getAttribute("filled");
+        if(filled) {
+            PrintWriter writer = response.getWriter();
+            writer.write("<html>\n" +
+                    "<head>\n" +
+                    "    <title>Books</title>\n" +
+                    "</head>\n" +
+                    "<body>\n");
+            writer.write("Done!");
+            writer.write("Go to books list: ");
+            writer.write("<a href=\"http://localhost:8080/part_2_war_exploded/orders/\">Go to orders</a>");
+            writer.write( "</body>\n" +
+                    "</html>");
+        } else {
+            String title = request.getParameter("title_p");
+            String author = request.getParameter("author_p");
+          //  Order o = new Order(0, title, author);
+     //       os.save(o);
 
+            fulfillRequestWithBooks(request);
+            request.setAttribute("filled", true);
+            RequestDispatcher rd = request.getRequestDispatcher("orders.jsp");
+            rd.include(request, response);
+        }
+    }
+
+
+
+    private static void fulfillRequestWithBooks(HttpServletRequest request) {
+        List<Order> orders = os.getOrders();
+        request.setAttribute("orders", orders);
     }
 }
 
