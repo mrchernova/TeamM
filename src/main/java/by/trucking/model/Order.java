@@ -17,10 +17,9 @@ public class Order {
     private Client client;
     private Status status;
 
-    public Order(String description, float weight) {
-        this.description = description;
-        this.weight = weight;
-    }
+
+
+
 
     public Order(String description, float weight, String departure, String destination, float price) {
         this.description = description;
@@ -28,8 +27,5 @@ public class Order {
         this.departure = departure;
         this.destination = destination;
         this.price = price;
-
     }
-
-
 }

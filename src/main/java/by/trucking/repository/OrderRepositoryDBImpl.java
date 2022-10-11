@@ -32,6 +32,7 @@ public class OrderRepositoryDBImpl implements OrderRepository {
          //   ps.setInt(7, order.getStatus().ordinal());
             ps.executeUpdate();
         } catch (SQLException e) {
+            System.out.println("ошибка ошибка OrderRepositoryDBImpl");
             e.printStackTrace();
         }
         return order;
