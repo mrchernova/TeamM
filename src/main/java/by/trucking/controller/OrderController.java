@@ -37,13 +37,8 @@ public class OrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<Order> orders = os.getOrders();
-        request.setAttribute("orders", orders);
-        RequestDispatcher rd = request.getRequestDispatcher("/orders.jsp");
-        rd.forward(request, response);
 
 
-        /*
         List<Order> orders = os.getOrders();
 
         response.setHeader("Content-Type", "text/html;charset=UTF-8");
@@ -82,44 +77,14 @@ public class OrderController extends HttpServlet {
         }
         writer.flush();
 
-         */
+
     }
 
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        boolean filled = request.getAttribute("filled") != null && (boolean) request.getAttribute("filled");
-        if(filled) {
-            PrintWriter writer = response.getWriter();
-            writer.write("<html>\n" +
-                    "<head>\n" +
-                    "    <title>Books</title>\n" +
-                    "</head>\n" +
-                    "<body>\n");
-            writer.write("Done!");
-            writer.write("Go to books list: ");
-            writer.write("<a href=\"http://localhost:8080/part_2_war_exploded/orders/\">Go to orders</a>");
-            writer.write( "</body>\n" +
-                    "</html>");
-        } else {
-            String title = request.getParameter("title_p");
-            String author = request.getParameter("author_p");
-          //  Order o = new Order(0, title, author);
-     //       os.save(o);
 
-            fulfillRequestWithBooks(request);
-            request.setAttribute("filled", true);
-            RequestDispatcher rd = request.getRequestDispatcher("orders.jsp");
-            rd.include(request, response);
-        }
-    }
-
-
-
-    private static void fulfillRequestWithBooks(HttpServletRequest request) {
-        List<Order> orders = os.getOrders();
-        request.setAttribute("orders", orders);
     }
 }
 

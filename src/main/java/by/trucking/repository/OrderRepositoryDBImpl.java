@@ -2,6 +2,7 @@ package by.trucking.repository;
 
 import by.trucking.model.Client;
 import by.trucking.model.Order;
+import by.trucking.model.Product;
 import by.trucking.model.Status;
 import by.trucking.utils.ConnectionDB;
 
@@ -12,26 +13,28 @@ import java.util.List;
 
 public class OrderRepositoryDBImpl implements OrderRepository {
 
-    @Override
     /**
      * Поле status_id при создании заказа будет всегда AVALIABLE
      * Поле client_id будет подставляться автоматически, так так уже известно
      */
+    @Override
     public Order save(Order order) {
         try (Connection connection = ConnectionDB.getConnect();
              PreparedStatement ps = connection.prepareStatement(
-                     "INSERT INTO orders (description,weight,departure,destination,price,status_id,client_id) values (?,?,?,?,?," + Status.AVALIABLE + ",0)"
+                     "INSERT INTO orders (description,weight,departure,destination,price) values (?,?,?,?,?)"
              )) {
             ps.setString(1, order.getDescription());
             ps.setFloat(2, order.getWeight());
             ps.setString(3, order.getDeparture());
             ps.setString(4, order.getDestination());
             ps.setFloat(5, order.getPrice());
+           // ps.setInt(6, order.getClient().getId());
+         //   ps.setInt(7, order.getStatus().ordinal());
             ps.executeUpdate();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-return order;
+        return order;
     }
 
     @Override

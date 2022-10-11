@@ -10,7 +10,6 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     OrderRepository orderRepository;
-
     ClientService clientService;
 
     public OrderServiceImpl(OrderRepository orderRepository, ClientService clientService) {
@@ -25,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order save(Order order) {
-        return null;
+        return orderRepository.save(order);
     }
 
     @Override
@@ -71,7 +70,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getByPrice(String price) {       return null;    }
+    public List<Order> getByPrice(String price) {
+        return null;
+    }
 }
 
 
