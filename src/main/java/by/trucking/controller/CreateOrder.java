@@ -54,7 +54,6 @@ public class CreateOrder extends HttpServlet {
 //            Status status_id = Status.getByOrdinal(s_id);
 
             Order order = new Order(description, weight, departure, destination, price);
-            System.out.println(order + "!!!!!!!!!!!!!!!!!!!!!!!!!!!");//!!!!!!!!!!!!!!!!!!!!!!!!
             os.save(order);
             response.sendRedirect(request.getContextPath() + "/index");
         } catch (Exception ex) {

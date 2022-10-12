@@ -21,18 +21,18 @@ public class OrderRepositoryDBImpl implements OrderRepository {
     public Order save(Order order) {
         try (Connection connection = ConnectionDB.getConnect();
              PreparedStatement ps = connection.prepareStatement(
-                     "INSERT INTO orders (description,weight,departure,destination,price) values (?,?,?,?,?)"
+                     "INSERT INTO orders (description,weight,departure,destination,price,client_id,status_id) values (?,?,?,?,?,?,?)"
              )) {
             ps.setString(1, order.getDescription());
             ps.setFloat(2, order.getWeight());
             ps.setString(3, order.getDeparture());
             ps.setString(4, order.getDestination());
             ps.setFloat(5, order.getPrice());
-           // ps.setInt(6, order.getClient().getId());
-         //   ps.setInt(7, order.getStatus().ordinal());
+//            ps.setInt(6, order.getClient().getId());
+            ps.setInt(6, 90);
+            ps.setInt(7, Status.AVALIABLE.ordinal());
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("ошибка ошибка OrderRepositoryDBImpl");
             e.printStackTrace();
         }
         return order;
@@ -45,6 +45,16 @@ public class OrderRepositoryDBImpl implements OrderRepository {
 
     @Override
     public boolean delete(int id) {
+        try (Connection connection = ConnectionDB.getConnect();
+             PreparedStatement ps = connection.prepareStatement(
+                     "DELETE FROM orders WHERE id = ?"
+             )) {
+            ps.setInt(1,id);
+            ps.executeUpdate();
+            return true;
+        }catch (Exception e){
+            System.out.println(e);
+        }
         return false;
     }
 

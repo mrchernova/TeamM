@@ -18,9 +18,17 @@ public class Order {
     private Status status;
 
 
+    public Order(String description, float weight, String departure, String destination, float price, Client client, Status status) {
+        this.description = description;
+        this.weight = weight;
+        this.departure = departure;
+        this.destination = destination;
+        this.price = price;
+        this.client = client;
+        this.status = status;
+    }
 
-
-
+ /*оставить из-за CreateOrder*/
     public Order(String description, float weight, String departure, String destination, float price) {
         this.description = description;
         this.weight = weight;

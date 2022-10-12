@@ -25,6 +25,10 @@
     <input name="destination" value="1"/><br><br>
     <label>Price</label><br>
     <input name="price" value="1"/><br><br>
+<%--    <label>Client_id</label><br>--%>
+<%--    <input name="price" value="1"/><br><br>--%>
+<%--    <label>Status_id</label><br>--%>
+<%--    <input name="price" value="1"/><br><br>--%>
 
     <input type="submit" value="Save" />
 </form>

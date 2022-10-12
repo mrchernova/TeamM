@@ -29,22 +29,30 @@
 <h2>Orders List</h2>
 <p><a href='<c:url value="/create_order" />'>Create new order</a></p>
 <table>
-    <tr><th>Description</th>
+    <tr>
+        <th>id</th>
+        <th>Description</th>
         <th>Weight</th>
         <th>Departure</th>
         <th>Destination</th>
         <th>Price</th>
+        <th>Client_id</th>
+        <th>Status</th>
         <th></th>
     </tr>
     <c:forEach var="order" items="${orders}">
-        <tr><td>${order.description}</td>
+        <tr>
+            <td>${order.id}</td>
+            <td>${order.description}</td>
             <td>${order.weight}</td>
             <td>${order.departure}</td>
             <td>${order.destination}</td>
             <td>${order.price}</td>
+            <td>${order.client.getId()}</td>
+            <td>${order.status}</td>
             <td>
                 <a href='<c:url value="/edit?id=${order.id}" />'>Edit</a> |
-                <form method="post" action='<c:url value="/delete" />' style="display:inline;">
+                <form method="post" action='<c:url value="/delete_order" />' style="display:inline;">
                     <input type="hidden" name="id" value="${order.id}">
                     <input type="submit" value="Delete">
                 </form>
