@@ -51,7 +51,7 @@
             <td>${order.client.getId()}</td>
             <td>${order.status}</td>
             <td>
-                <a href='<c:url value="/edit?id=${order.id}" />'>Edit</a> |
+                <a href='<c:url value="/edit_order?id=${order.id}" />'>Edit</a> |
                 <form method="post" action='<c:url value="/delete_order" />' style="display:inline;">
                     <input type="hidden" name="id" value="${order.id}">
                     <input type="submit" value="Delete">

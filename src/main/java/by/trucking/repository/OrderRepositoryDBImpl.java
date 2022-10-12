@@ -40,8 +40,23 @@ public class OrderRepositoryDBImpl implements OrderRepository {
 
     @Override
     public Order edit(Order order) {
-        return null;
+        try (Connection connection = ConnectionDB.getConnect();
+             PreparedStatement ps = connection.prepareStatement(
+                     "UPDATE orders SET description=?, weight=?,departure=?,destination=?,price=? WHERE id = ?"
+             )) {
+            ps.setString(1, order.getDescription());
+            ps.setFloat(2, order.getWeight());
+            ps.setString(3, order.getDeparture());
+            ps.setString(4, order.getDestination());
+            ps.setFloat(5, order.getPrice());
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return order;
     }
+
 
     @Override
     public boolean delete(int id) {
@@ -49,10 +64,10 @@ public class OrderRepositoryDBImpl implements OrderRepository {
              PreparedStatement ps = connection.prepareStatement(
                      "DELETE FROM orders WHERE id = ?"
              )) {
-            ps.setInt(1,id);
+            ps.setInt(1, id);
             ps.executeUpdate();
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return false;
@@ -85,27 +100,48 @@ public class OrderRepositoryDBImpl implements OrderRepository {
 
     @Override
     public Order getById(int id) throws SQLException {
+//        try (Connection connection = ConnectionDB.getConnect();
+//             PreparedStatement ps = connection.prepareStatement("SELECT * FROM orders WHERE id=?")) {
+//            ps.setInt(1, id);
+//            try (ResultSet rs = ps.executeQuery()) {
+//                if (rs.next()) {
+//                    return new Order(
+//                            rs.getInt(1),
+//                            rs.getString(2),
+//                            rs.getFloat(3),
+//                            rs.getString(4),
+//                            rs.getString(5),
+//                            rs.getFloat(6),
+//                            new Client(rs.getInt(7)),
+//                            Status.getByOrdinal(rs.getInt(8)));
+//                } else {
+//                    return new Order();
+//                }
+//            }
+//        }
+//    }
+        Order order = null;
         try (Connection connection = ConnectionDB.getConnect();
              PreparedStatement ps = connection.prepareStatement("SELECT * FROM orders WHERE id=?")) {
             ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return new Order(
-                            rs.getInt(1),
-                            rs.getString(2),
-                            rs.getFloat(3),
-                            rs.getString(4),
-                            rs.getString(5),
-                            rs.getFloat(6),
-                            new Client(rs.getInt(7)),
-                            Status.getByOrdinal(rs.getInt(8)));
-                } else {
-                    return new Order();
-                }
-            }
-        }
-    }
 
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int o_id = rs.getInt("id");
+                String description = rs.getString("description");
+                float weight = rs.getFloat("weight");
+                String departure = rs.getString("departure");
+                String destination = rs.getString("destination");
+                float price = rs.getFloat("price");
+                Status status = Status.getByOrdinal(rs.getInt("status_id")); //выведет AVALIABLE или типа того
+              //  Status.getByOrdinal(rs.getInt(8)));
+                order = new Order(o_id, description, weight, departure, destination, price, status);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return order;
+    }
 
     @Override
     public List<Order> getByDescription(String description) {

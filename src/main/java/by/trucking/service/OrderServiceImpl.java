@@ -29,7 +29,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order edit(Order order) {
-        return null;
+        return orderRepository.edit(order);
     }
 
     @Override
