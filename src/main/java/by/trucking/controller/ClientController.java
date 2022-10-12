@@ -1,12 +1,9 @@
 package by.trucking.controller;
 
 import by.trucking.model.Client;
-import by.trucking.model.Order;
-import by.trucking.model.User;
 import by.trucking.repository.ClientRepositoryDBImpl;
 import by.trucking.service.ClientService;
 import by.trucking.service.ClientServiceImpl;
-import by.trucking.service.UserService;
 import by.trucking.service.UserServiceImpl;
 
 import javax.servlet.ServletException;
@@ -18,7 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/getclients")
+@WebServlet("/clients")
 public class ClientController extends HttpServlet {
 
     private final ClientService cs = new ClientServiceImpl(

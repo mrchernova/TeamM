@@ -6,7 +6,6 @@ import by.trucking.repository.ClientRepositoryDBImpl;
 import by.trucking.repository.OrderRepositoryDBImpl;
 import by.trucking.service.*;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -27,7 +26,6 @@ public class OrderController extends HttpServlet {
     private final ClientService cs = new ClientServiceImpl(new ClientRepositoryDBImpl(), new UserServiceImpl());
 
 
-
     @Override
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
         System.out.println(req);
@@ -36,7 +34,6 @@ public class OrderController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 
 
         List<Order> orders = os.getOrders();
@@ -76,13 +73,6 @@ public class OrderController extends HttpServlet {
             writer.close();
         }
         writer.flush();
-
-
-    }
-
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
     }

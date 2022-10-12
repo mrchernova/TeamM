@@ -15,7 +15,7 @@ public class OrderRepositoryDBImpl implements OrderRepository {
 
     /**
      * Поле status_id при создании заказа будет всегда AVALIABLE
-     * Поле client_id будет подставляться автоматически, так так уже известно
+     * Поле client_id будет подставляться автоматически, так так будет известно
      */
     @Override
     public Order save(Order order) {
@@ -29,7 +29,7 @@ public class OrderRepositoryDBImpl implements OrderRepository {
             ps.setString(4, order.getDestination());
             ps.setFloat(5, order.getPrice());
 //            ps.setInt(6, order.getClient().getId());
-            ps.setInt(6, 90);
+            ps.setInt(6, 90); // пока  client_id = 90, в дальнейшем значение будет соответствовать клиенту
             ps.setInt(7, Status.AVALIABLE.ordinal());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -42,16 +42,20 @@ public class OrderRepositoryDBImpl implements OrderRepository {
     public Order edit(Order order) {
         try (Connection connection = ConnectionDB.getConnect();
              PreparedStatement ps = connection.prepareStatement(
-                     "UPDATE orders SET description=?, weight=?,departure=?,destination=?,price=? WHERE id = ?"
+                     "UPDATE orders SET description=?, weight=?,departure=?,destination=?,price=?,status_id=? WHERE id = ?"
              )) {
             ps.setString(1, order.getDescription());
             ps.setFloat(2, order.getWeight());
             ps.setString(3, order.getDeparture());
             ps.setString(4, order.getDestination());
             ps.setFloat(5, order.getPrice());
+           // ps.setInt(6, order.getStatus().ordinal());
+            ps.setInt(6, order.getStatus().ordinal());
 
+            ps.setInt(7, order.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
+            System.out.println(order.getStatus().ordinal());
             e.printStackTrace();
         }
         return order;
@@ -100,26 +104,6 @@ public class OrderRepositoryDBImpl implements OrderRepository {
 
     @Override
     public Order getById(int id) throws SQLException {
-//        try (Connection connection = ConnectionDB.getConnect();
-//             PreparedStatement ps = connection.prepareStatement("SELECT * FROM orders WHERE id=?")) {
-//            ps.setInt(1, id);
-//            try (ResultSet rs = ps.executeQuery()) {
-//                if (rs.next()) {
-//                    return new Order(
-//                            rs.getInt(1),
-//                            rs.getString(2),
-//                            rs.getFloat(3),
-//                            rs.getString(4),
-//                            rs.getString(5),
-//                            rs.getFloat(6),
-//                            new Client(rs.getInt(7)),
-//                            Status.getByOrdinal(rs.getInt(8)));
-//                } else {
-//                    return new Order();
-//                }
-//            }
-//        }
-//    }
         Order order = null;
         try (Connection connection = ConnectionDB.getConnect();
              PreparedStatement ps = connection.prepareStatement("SELECT * FROM orders WHERE id=?")) {

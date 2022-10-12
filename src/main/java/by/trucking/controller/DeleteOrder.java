@@ -1,6 +1,5 @@
 package by.trucking.controller;
 
-import by.trucking.ProductDB;
 import by.trucking.repository.OrderRepositoryDBImpl;
 import by.trucking.service.ClientServiceImpl;
 import by.trucking.service.OrderService;
@@ -25,10 +24,8 @@ public class DeleteOrder extends HttpServlet {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
             os.delete(id);
-            System.out.println("delete?" + os.delete(id));
             response.sendRedirect(request.getContextPath() + "/index");
-        }
-        catch(Exception ex) {
+        } catch (Exception e) {
             getServletContext().getRequestDispatcher("/notfound.jsp").forward(request, response);
         }
     }

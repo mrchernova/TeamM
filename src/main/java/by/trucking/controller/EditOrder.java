@@ -1,6 +1,7 @@
 package by.trucking.controller;
 
 import by.trucking.model.Order;
+import by.trucking.model.Status;
 import by.trucking.repository.ClientRepositoryDBImpl;
 import by.trucking.repository.OrderRepositoryDBImpl;
 import by.trucking.service.*;
@@ -55,10 +56,9 @@ public class EditOrder extends HttpServlet {
             String departure = request.getParameter("departure");
             String destination = request.getParameter("destination");
             float price = Float.parseFloat(request.getParameter("price"));
-         //   int status = Integer.parseInt(request.getParameter("status"));
+            Status status = Status.valueOf(request.getParameter("status"));
 
-            Order order = new Order(id, description, weight, departure, destination, price);
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!doPost EDIT " + order);
+            Order order = new Order(id, description, weight, departure, destination, price, status);
             os.edit(order);
 
             response.sendRedirect(request.getContextPath() + "/index");

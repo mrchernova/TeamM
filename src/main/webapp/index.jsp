@@ -15,12 +15,12 @@
         <input type="submit" value="show all orders" id="submitOrder">
     </form>
     <br>
-    <form name="clientForm" action="/part_2_war_exploded/getclients" method="get">
+    <form name="clientForm" action="/part_2_war_exploded/clients" method="get">
         <input type="submit" value="show all clients" id="submitClient">
     </form>
     <br>
     <form name="showSmth" action="/part_2_war_exploded/index" method="get">
-        <input type="submit" value="show smth" id="submitShow">
+        <input type="submit" value="CRUD Orders" id="submitShow">
     </form>
 
 </fieldset>
@@ -64,26 +64,6 @@
 
 <br>
 <br>
-
-<h2>Products List</h2>
-<p><a href='<c:url value="/create" />'>Create new</a></p>
-<table>
-    <tr><th>Name</th>
-        <th>Price</th>
-        <th></th></tr>
-    <c:forEach var="product" items="${products}">
-        <tr><td>${product.name}</td>
-            <td>${product.price}</td>
-            <td>
-                <a href='<c:url value="/edit?id=${product.id}" />'>Edit</a> |
-                <form method="post" action='<c:url value="/delete" />' style="display:inline;">
-                    <input type="hidden" name="id" value="${product.id}">
-                    <input type="submit" value="Delete">
-                </form>
-            </td></tr>
-    </c:forEach>
-</table>
-
 
 
 </body>
