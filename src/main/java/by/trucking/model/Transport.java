@@ -14,7 +14,6 @@ public class Transport {
     private String carrying_capacity;
     private String number_plate;
     private Status status;
-    private Organization organization;
 
     
  

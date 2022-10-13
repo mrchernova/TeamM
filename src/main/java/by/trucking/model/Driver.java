@@ -11,7 +11,6 @@ public class Driver {
     private int id;
     private String name;
     private String surname;
-    private Organization organization;
     private Status status;
 
    

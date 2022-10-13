@@ -11,6 +11,9 @@ public class Organization {
 
     private int id;
     private String title;
+    private Contact contact;
+    private Driver driver;
+    private Transport transport;
     private User user;
 
   

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Client {
 
     private int id;
-    private int unp;
+    private int title;
     private Contact contact;
     private User user;
 
