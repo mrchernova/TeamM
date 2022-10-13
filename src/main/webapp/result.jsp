@@ -15,7 +15,7 @@
 
 <%
     String id = request.getParameter("id");
-    String cargo = request.getParameter("cargo");
+    String description = request.getParameter("description");
     String weight = request.getParameter("weight");
 %>
 
@@ -29,8 +29,8 @@
         <td><%= id%></td>
     </tr>
     <tr>
-        <td>Cargo</td>
-        <td><%= cargo%></td>
+        <td>Description</td>
+        <td><%= description%></td>
     </tr>
     <tr>
         <td>Weight</td>

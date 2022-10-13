@@ -37,7 +37,7 @@ public class OrderRepositoryDBImpl implements OrderRepository {
              ResultSet rs = statement.executeQuery("SELECT * FROM orders")) {
             while (rs.next()) {
                 Order o = new Order(rs.getInt("id"),
-                        rs.getString("cargo"),
+                        rs.getString("description"),
                         rs.getFloat("weight"),
                         rs.getString("departure"),
                         rs.getString("destination"),
@@ -77,7 +77,7 @@ public class OrderRepositoryDBImpl implements OrderRepository {
 
 
     @Override
-    public List<Order> getByCargo(String cargo) {
+    public List<Order> getByDescription(String description) {
         List<Order> orderList = new ArrayList<>();
         return orderList;
     }

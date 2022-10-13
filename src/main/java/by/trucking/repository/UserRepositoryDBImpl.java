@@ -1,8 +1,6 @@
 package by.trucking.repository;
 
-import by.trucking.model.Client;
 import by.trucking.model.Role;
-import by.trucking.model.Status;
 import by.trucking.model.User;
 import by.trucking.utils.ConnectionDB;
 
@@ -10,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRepositoryImpl implements UserRepository {
+public class UserRepositoryDBImpl implements UserRepository {
     @Override
     public User save(User user) {
         return null;
@@ -42,7 +40,7 @@ public class UserRepositoryImpl implements UserRepository {
                             Role.getByOrdinal(rs.getInt(4)));
 
                 } else {
-                    return new User();
+                    return null;
                 }
             }
         }

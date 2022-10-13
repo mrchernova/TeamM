@@ -51,8 +51,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getByCargo(String cargo) {
-        return orderRepository.getByCargo(cargo);
+    public List<Order> getByDescription(String description) {
+        return orderRepository.getByDescription(description);
     }
 
     @Override

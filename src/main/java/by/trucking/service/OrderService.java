@@ -18,7 +18,7 @@ public interface OrderService {
 
     List<Order> getOrders();
 
-    List<Order> getByCargo(String cargo);
+    List<Order> getByDescription(String description);
 
     List<Order> getByWeight(String weight);
 

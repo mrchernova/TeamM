@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class Order {
     private int id;
-    private String cargo;
+    private String description;
     private float weight;
     private String departure;
     private String destination;

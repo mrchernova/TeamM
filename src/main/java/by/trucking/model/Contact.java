@@ -7,15 +7,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Client {
-
+public class Contact {
     private int id;
-    private int unp;
-    private Contact contact;
-    private User user;
-
-    public Client(int id) {
-        this.id = id;
-    }
+    private String title;
+    private String phone;
 
 }
