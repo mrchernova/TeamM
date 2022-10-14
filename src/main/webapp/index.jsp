@@ -4,6 +4,17 @@
 
 <html>
 <head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    </style>
 </head>
 <body>
 
@@ -30,7 +41,6 @@
 <p><a href='<c:url value="/create_order" />'>Create new order</a></p>
 <table>
     <tr>
-        <th>id</th>
         <th>Description</th>
         <th>Weight</th>
         <th>Departure</th>
@@ -38,11 +48,10 @@
         <th>Price</th>
         <th>Client_id</th>
         <th>Status</th>
-        <th></th>
+        <th>Options</th>
     </tr>
     <c:forEach var="order" items="${orders}">
         <tr>
-            <td>${order.id}</td>
             <td>${order.description}</td>
             <td>${order.weight}</td>
             <td>${order.departure}</td>
@@ -56,15 +65,10 @@
                     <input type="hidden" name="id" value="${order.id}">
                     <input type="submit" value="Delete">
                 </form>
-            </td></tr>
+            </td>
+        </tr>
     </c:forEach>
 </table>
-
-
-
-<br>
-<br>
-
 
 </body>
 </html>
