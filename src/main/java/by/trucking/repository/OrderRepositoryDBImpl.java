@@ -76,11 +76,7 @@ public class OrderRepositoryDBImpl implements OrderRepository {
     }
 
 
-    @Override
-    public List<Order> getByDescription(String description) {
-        List<Order> orderList = new ArrayList<>();
-        return orderList;
-    }
+
 
     @Override
     public List<Order> getByWeight(String weight) {

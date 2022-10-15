@@ -17,7 +17,6 @@ public interface OrderRepository {
 
     List<Order> getOrders();
 
-    List<Order> getByDescription(String description);
 
     List<Order> getByWeight(String weight);
 

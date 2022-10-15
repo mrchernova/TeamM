@@ -21,11 +21,10 @@ public class OrderController extends HttpServlet {
     private final OrderService os = new OrderServiceImpl(
             new OrderRepositoryDBImpl(), new ClientServiceImpl());
 
-    private final ClientService cs = new ClientServiceImpl(
-            new ClientRepositoryDBImpl(), new UserServiceImpl());
+
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         List<Order> orders = os.getOrders();
 

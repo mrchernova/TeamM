@@ -50,10 +50,6 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.getById(id);
     }
 
-    @Override
-    public List<Order> getByDescription(String description) {
-        return orderRepository.getByDescription(description);
-    }
 
     @Override
     public List<Order> getByWeight(String weight) {
