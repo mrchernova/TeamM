@@ -51,15 +51,18 @@ public class EditUser extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             String login = request.getParameter("login");
             String password = request.getParameter("password");
-
             Role role = Role.valueOf(request.getParameter("role"));
 
             User user = new User(id, login, password, role);
             us.edit(user);
+            System.out.println(us.edit(user) + "lalala");
 
             response.sendRedirect(request.getContextPath() + "/index");
-        } catch (Exception ex) {
-
+        }catch (NullPointerException e){
+            System.out.println("user is null");
+            //getServletContext().getRequestDispatcher("/check.jsp").forward(request, response);
+        }catch (Exception e) {
+            e.printStackTrace();
             getServletContext().getRequestDispatcher("/notfound.jsp").forward(request, response);
         }
     }

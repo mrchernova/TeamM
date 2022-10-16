@@ -4,7 +4,11 @@ import by.trucking.model.Client;
 import by.trucking.model.User;
 import by.trucking.repository.ClientRepository;
 import by.trucking.repository.UserRepository;
+import by.trucking.utils.ConnectionDB;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -27,6 +31,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User edit(User user) {
+        try (Connection connection = ConnectionDB.getConnect();
+             PreparedStatement ps = connection.prepareStatement(
+                     "SELECT * FROM users WHERE login  = ?"
+             )) {
+
+            ps.setString(1, user.getLogin());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                System.out.println("такое уже есть"); //выводит в консоль
+                return userRepository.edit(null);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
         return userRepository.edit(user);
     }
 

@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -11,9 +11,9 @@
 <form method="post">
   <input type="hidden" value="${user.id}" name="id"/>
   <label>Login</label><br>
-  <input name="description" value="${user.login}"/><br><br>
+  <input name="login" value="${user.login}"/><br><br>
   <label>Password</label><br>
-  <input name="weight" value="${user.password}"/><br><br>
+  <input name="password" value="${user.password}"/><br><br>
 
   <label>Role</label><br>
   <select name="role">

@@ -35,9 +35,10 @@ public class UserRepositoryDBImpl implements UserRepository {
             ps.setString(1, user.getLogin());
             ps.setString(2, user.getPassword());
             ps.setInt(3, user.getRole().ordinal());
-          //  ps.setInt(3, Role.UNDEFINED.ordinal());
-
             ps.setInt(4, user.getId());
+
+            //№2 и тут проверка на повтор логина
+
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(user.getRole().ordinal());
@@ -65,22 +66,23 @@ public class UserRepositoryDBImpl implements UserRepository {
     @Override
     public User getById(int id) throws SQLException {
 
+        User user = null;
         try (Connection connection = ConnectionDB.getConnect();
              PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE id=?")) {
             ps.setInt(1, id);
 
-            try (ResultSet rs = ps.executeQuery();) {
-
-                if (rs.next()) {
-                    return new User(rs.getInt(1),
-                            rs.getString(2),
-                            rs.getString(3),
-                            Role.getByOrdinal(rs.getInt(4)));
-                } else {
-                    return null;
-                }
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int o_id = rs.getInt("id");
+                String login = rs.getString("login");
+                String password = rs.getString("password");
+                Role role = Role.getByOrdinal(rs.getInt("role_id"));
+                user = new User(o_id, login, password, role);
             }
+        } catch (Exception e) {
+            System.out.println(e);
         }
+        return user;
     }
 
     @Override
