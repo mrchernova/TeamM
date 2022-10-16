@@ -16,4 +16,17 @@ public class User {
     public User(int id) {
         this.id = id;
     }
+
+
+   //constructor for UserCreate
+    public User(String login, String password, Role role) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
+
+    }
 }

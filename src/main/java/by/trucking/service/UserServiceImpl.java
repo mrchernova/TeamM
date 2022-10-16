@@ -8,30 +8,31 @@ import by.trucking.repository.UserRepository;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    public UserServiceImpl(){
+
+    public UserServiceImpl() {
 
     }
 
     @Override
     public User save(User user) {
-        return null;
+        return userRepository.save(user);
     }
 
     @Override
     public User edit(User user) {
-        return null;
+        return userRepository.edit(user);
     }
 
     @Override
     public boolean delete(int id) {
-        return false;
+        return userRepository.delete(id);
     }
 
     @Override
@@ -41,8 +42,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> getUsers() {
-     List< User> users = userRepository.getUsers();
-        return users;
+        return userRepository.getUsers();
     }
 
     @Override

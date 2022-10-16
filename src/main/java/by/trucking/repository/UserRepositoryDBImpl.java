@@ -11,16 +11,53 @@ import java.util.List;
 public class UserRepositoryDBImpl implements UserRepository {
     @Override
     public User save(User user) {
-        return null;
+        try (Connection connection = ConnectionDB.getConnect();
+             PreparedStatement ps = connection.prepareStatement(
+                     "INSERT INTO users (login,password,role_id) values (?,?,?)"
+             )) {
+            ps.setString(1, user.getLogin());
+            ps.setString(2, user.getPassword());
+            ps.setInt(3, user.getRole().ordinal());
+            ps.executeUpdate(); // проверку на одинаковые логины надо. сервис?
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
     @Override
     public User edit(User user) {
-        return null;
+
+        try (Connection connection = ConnectionDB.getConnect();
+             PreparedStatement ps = connection.prepareStatement(
+                     "UPDATE users SET login=?, password=?, role_id=? WHERE id = ?"
+             )) {
+            ps.setString(1, user.getLogin());
+            ps.setString(2, user.getPassword());
+            ps.setInt(3, user.getRole().ordinal());
+          //  ps.setInt(3, Role.UNDEFINED.ordinal());
+
+            ps.setInt(4, user.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(user.getRole().ordinal());
+            e.printStackTrace();
+        }
+        return user;
     }
 
     @Override
     public boolean delete(int id) {
+        try (Connection connection = ConnectionDB.getConnect();
+             PreparedStatement ps = connection.prepareStatement(
+                     "DELETE FROM users WHERE id = ?"
+             )) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         return false;
     }
 
@@ -28,7 +65,8 @@ public class UserRepositoryDBImpl implements UserRepository {
     @Override
     public User getById(int id) throws SQLException {
 
-        try (PreparedStatement ps = ConnectionDB.getConnect().prepareStatement("SELECT * FROM users WHERE id=?")) {
+        try (Connection connection = ConnectionDB.getConnect();
+             PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE id=?")) {
             ps.setInt(1, id);
 
             try (ResultSet rs = ps.executeQuery();) {
@@ -38,7 +76,6 @@ public class UserRepositoryDBImpl implements UserRepository {
                             rs.getString(2),
                             rs.getString(3),
                             Role.getByOrdinal(rs.getInt(4)));
-
                 } else {
                     return null;
                 }
@@ -52,7 +89,7 @@ public class UserRepositoryDBImpl implements UserRepository {
         List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionDB.getConnect();
              Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery("SELECT * FROM users)")) {
+             ResultSet rs = statement.executeQuery("SELECT * FROM users")) {
             while (rs.next()) {
                 User u = new User(rs.getInt("id"),
                         rs.getString("login"),

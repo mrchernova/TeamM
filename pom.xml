@@ -41,6 +41,14 @@
             <version>9.0.67</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+        <!--        для работы с jsp -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
     </dependencies>
 
 

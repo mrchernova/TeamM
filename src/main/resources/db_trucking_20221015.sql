@@ -24,8 +24,8 @@ DROP TABLE IF EXISTS `clients`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `clients` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `contact` varchar(45) NOT NULL,
-  `title` varchar(45) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `contact` varchar(255) NOT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id_idx` (`user_id`),
@@ -39,7 +39,7 @@ CREATE TABLE `clients` (
 
 LOCK TABLES `clients` WRITE;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-INSERT INTO `clients` VALUES (1,'+375 (29) 111-11-11','Евроопт',1),(2,'+375 (29) 222-22-22','Ами Мебель',3),(3,'+375 (29) 333-33-33','IKEA',2);
+INSERT INTO `clients` VALUES (1,'Евроопт','+375 (29) 111-11-11',1),(2,'Ами Мебель','+375 (29) 222-22-22',3),(3,'IKEA','+375 (29) 333-33-33',2);
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,7 +65,7 @@ CREATE TABLE `drivers` (
 
 LOCK TABLES `drivers` WRITE;
 /*!40000 ALTER TABLE `drivers` DISABLE KEYS */;
-INSERT INTO `drivers` VALUES (1,'Иван','Иванов',0),(2,'Петр','Петров',0),(3,'Антон','Антонов',0);
+INSERT INTO `drivers` VALUES (1,'Иван','Иванов',1),(2,'Петр','Петров',1),(3,'Антон','Антонов',1);
 /*!40000 ALTER TABLE `drivers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,17 +78,17 @@ DROP TABLE IF EXISTS `orders`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orders` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `cargo` varchar(45) NOT NULL,
+  `description` varchar(255) NOT NULL,
   `weight` decimal(4,1) NOT NULL,
   `departure` varchar(45) NOT NULL,
   `destination` varchar(45) NOT NULL,
   `price` decimal(5,2) NOT NULL,
-  `status_id` int NOT NULL,
   `client_id` int NOT NULL,
+  `status_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `client_idx` (`client_id`),
-  CONSTRAINT `o_client_id` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+  CONSTRAINT `ord_client_id` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +97,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'Продукты',300.0,'Минск','Витебск',600.00,0,1),(2,'Шкаф',150.0,'Гомель','Гродно',250.00,0,2),(3,'Диван',350.0,'Гомель','Минск',200.00,0,3),(4,'Стол',16.0,'Брест','Могилев',160.00,0,2);
+INSERT INTO `orders` VALUES (1,'Продукты',300.0,'Минск','Витебск',600.00,1,0),(2,'Шкаф',150.0,'Гомель','Гродно',250.00,2,0),(3,'Диван',350.0,'Гомель','Минск',200.01,3,0),(4,'Стол',16.0,'Брест','Могилев',160.00,2,2);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +114,7 @@ CREATE TABLE `orders_base` (
   `driver_id` int NOT NULL,
   `transport_id` int NOT NULL,
   `organization_id` int NOT NULL,
-  `description` varchar(45) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `order_id_idx` (`order_id`),
   KEY `driver_id_idx` (`driver_id`),
@@ -145,8 +145,8 @@ DROP TABLE IF EXISTS `organizations`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `organizations` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(45) NOT NULL,
-  `contact` varchar(45) DEFAULT NULL,
+  `title` varchar(255) NOT NULL,
+  `contact` varchar(255) DEFAULT NULL,
   `driver_id` int DEFAULT NULL,
   `transport_id` int DEFAULT NULL,
   `user_id` int NOT NULL,
@@ -195,7 +195,7 @@ CREATE TABLE `transport` (
 
 LOCK TABLES `transport` WRITE;
 /*!40000 ALTER TABLE `transport` DISABLE KEYS */;
-INSERT INTO `transport` VALUES (1,'DAF','truck',6,'1234 AE-7',0),(2,'Volvo','truck',5,'5468 EE-1',0),(3,'Mersedes','van',4,'5367 II-2',0),(4,'MAN','truck',6,'2334 RT-3',0),(5,'Renault','truck',5,'8654 OO-4',0),(6,'Scania','truck',5,'3562 RE-5',0),(7,'Volkswagen','van',4,'4353 HH-6',0);
+INSERT INTO `transport` VALUES (1,'DAF','truck',6,'1234 AE-7',1),(2,'Volvo','truck',5,'5468 EE-1',1),(3,'Mersedes','van',4,'5367 II-2',1),(4,'MAN','truck',6,'2334 RT-3',1),(5,'Renault','truck',5,'8654 OO-4',1),(6,'Scania','truck',5,'3562 RE-5',1),(7,'Volkswagen','van',4,'4353 HH-6',1);
 /*!40000 ALTER TABLE `transport` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,8 +211,9 @@ CREATE TABLE `users` (
   `login` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `role_id` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `login_UNIQUE` (`login`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,7 +222,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'evroopt','1111',2),(2,'ikea','1111',2),(3,'ami','1111',2),(4,'ip_perevozki','1111',3),(5,'ooo_dostavka','1111',3),(6,'administrator','1234',1);
+INSERT INTO `users` VALUES (1,'evroopt','1111',2),(2,'ikea','1111',2),(3,'ami','1111',2),(4,'ip_perevozki','1111',3),(5,'ooo_dostavka','1111',3),(6,'administrator','1234',1),(7,'new','new',3),(9,'1','1',3),(10,'2','2',3);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -234,4 +235,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-05 19:59:43
+-- Dump completed on 2022-10-15 21:32:21
