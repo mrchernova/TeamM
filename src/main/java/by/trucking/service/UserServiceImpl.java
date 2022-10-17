@@ -38,16 +38,17 @@ public class UserServiceImpl implements UserService {
 
             ps.setString(1, user.getLogin());
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                System.out.println("такое уже есть"); //выводит в консоль
+
+            // rs.next() должкн возвращать true, если из запроса что-нибудь было выведено
+            // иначе false
+             if (rs.next()) {
+                System.out.println("такое уже есть (userserviseimpl)"); //выводит в консоль
                 return userRepository.edit(null);
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
         return userRepository.edit(user);
     }
 

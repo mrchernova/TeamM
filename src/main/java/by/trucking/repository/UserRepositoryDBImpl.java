@@ -41,6 +41,7 @@ public class UserRepositoryDBImpl implements UserRepository {
 
             ps.executeUpdate();
         } catch (SQLException e) {
+            System.out.println("duplicate entry");
             System.out.println(user.getRole().ordinal());
             e.printStackTrace();
         }
