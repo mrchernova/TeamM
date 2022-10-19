@@ -19,4 +19,6 @@ public interface UserRepository {
     List<User> getByLogin();
 
     List<User> getByRole();
+
+    boolean check(User user);
 }

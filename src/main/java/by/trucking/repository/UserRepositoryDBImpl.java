@@ -27,25 +27,20 @@ public class UserRepositoryDBImpl implements UserRepository {
 
     @Override
     public User edit(User user) {
+            try (Connection connection = ConnectionDB.getConnect();
+                 PreparedStatement ps = connection.prepareStatement(
+                         "UPDATE users SET password=? WHERE id = ?"
+                 )) {
+//                ps.setString(1, user.getLogin());
+                ps.setString(1, user.getPassword());
+//                ps.setInt(3, user.getRole().ordinal());
+                ps.setInt(2, user.getId());
 
-        try (Connection connection = ConnectionDB.getConnect();
-             PreparedStatement ps = connection.prepareStatement(
-                     "UPDATE users SET login=?, password=?, role_id=? WHERE id = ?"
-             )) {
-            ps.setString(1, user.getLogin());
-            ps.setString(2, user.getPassword());
-            ps.setInt(3, user.getRole().ordinal());
-            ps.setInt(4, user.getId());
-
-            //№2 и тут проверка на повтор логина
-
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("duplicate entry");
-            System.out.println(user.getRole().ordinal());
-            e.printStackTrace();
-        }
-        return user;
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return user;
     }
 
     @Override
@@ -114,5 +109,10 @@ public class UserRepositoryDBImpl implements UserRepository {
     @Override
     public List<User> getByRole() {
         return null;
+    }
+
+    @Override
+    public boolean check(User user) {
+        return false;
     }
 }
