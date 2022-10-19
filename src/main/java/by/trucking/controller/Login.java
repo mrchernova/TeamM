@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/login")
 public class Login extends HttpServlet {
@@ -35,15 +36,22 @@ public class Login extends HttpServlet {
 
             User user = new User(login, password);
 
-            // проверяет есть ли такой логин в БД
-            if (us.check(user)) {
-                getServletContext().getRequestDispatcher("/check.jsp").forward(request, response);
+            // проверяет есть ли такой логин в БД. Если есть, то далее проверка пароля
+            if (us.checkLogin(user)) {
+                //проверка пароля
+                if(us.checkPassword(user)){
+                    PrintWriter out = response.getWriter();
+                    out.print("Добро пожаловать, " + user.getLogin());
+                    out.close();
+                }else {
+                    PrintWriter out = response.getWriter();
+                    out.print("Неверный логин или пароль");
+                    out.close();
+                }
             }else{
                 response.sendRedirect(request.getContextPath() + "/login");
             }
 
-
-          //  response.sendRedirect(request.getContextPath() + "/index");
         } catch (Exception e) {
             e.printStackTrace();
             getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/index")
+@WebServlet("/verifiedUser")
 public class IndexServlet extends HttpServlet {
     private final UserService us = new UserServiceImpl(new UserRepositoryDBImpl());
 
@@ -26,7 +26,7 @@ public class IndexServlet extends HttpServlet {
 
         List<User> users = us.getUsers();
         request.setAttribute("users", users);
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/verifiedUser.jsp").forward(request, response);
 
 
     }

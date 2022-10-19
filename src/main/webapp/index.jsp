@@ -13,43 +13,13 @@
 
 <fieldset>
     <legend>MENU</legend>
-    <form action='<c:url value="/index" />' method="get">
-        <input type="submit" value="All users" >
-    </form>
-    <br>
-    <form action='<c:url value="/register" />' method="post">
-        <input type="submit" value="Register">
-    </form>
-    or
-    <form action='<c:url value="/login" />' method="post">
-        <input type="submit" value="Login">
-    </form>
+
+    <a href='<c:url value="/registration" />'>Register</a> | <a href='<c:url value="/login" />'>Login</a>
+
 </fieldset>
 
 
-<table class="center">
-    <tr>
-        <th>Login</th>
-        <th>Password</th>
-        <th>Role</th>
-        <th>Options</th>
-    </tr>
-    <c:forEach var="user" items="${users}">
-        <tr>
-            <td>${user.login}</td>
-            <td>${user.password}</td>
-            <td name="role" value="${Role.valueOf(user.role).ordinal()}">${Role.valueOf(user.role).label}</td>
 
-            <td>
-                <a href='<c:url value="/edit_user?id=${user.id}" />'>Edit</a> |
-                <form method="post" action='<c:url value="/delete_user" />' style="display:inline;">
-                    <input type="hidden" name="id" value="${user.id}">
-                    <input type="submit" value="Delete">
-                </form>
-            </td>
-        </tr>
-    </c:forEach>
-</table>
 
 
 </body>

@@ -11,7 +11,8 @@
 <table class="userForm">
     <tr>
         <td style="padding-top: 15px">
-            <form method="post" action='<c:url value="/login"/>'>
+<%--            <form method="post" action='<c:url value="/login"/>'>--%>
+            <form method="post">
                 <label>Login</label><br>
                 <input name="login" class="width" required/><br><br>
                 <label>Password</label><br>

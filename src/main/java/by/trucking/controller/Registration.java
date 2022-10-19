@@ -11,28 +11,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 
-@WebServlet("/register")
-public class Register extends HttpServlet {
+@WebServlet("/registration")
+public class Registration extends HttpServlet {
 
     private final UserService us = new UserServiceImpl(new UserRepositoryDBImpl());
 
-   /* protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
-        getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
     }
 
-*/
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
-
 
         try {
             String login = request.getParameter("login");
@@ -42,16 +42,18 @@ public class Register extends HttpServlet {
             User user = new User(login, password, role);
 
             // заносит пользователя в БД, если у него уникальный логин
-            if (us.check(user)) {
-                getServletContext().getRequestDispatcher("/check.jsp").forward(request, response);
+            if (us.checkLogin(user)) {
+                PrintWriter out = response.getWriter();
+                out.print("Такой логин уже существует");
+                out.close();
             } else {
                 us.save(user);
+                response.sendRedirect(request.getContextPath() + "/verifiedUser");
             }
 
-            response.sendRedirect(request.getContextPath() + "/index");
         } catch (Exception e) {
             e.printStackTrace();
-         //   getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
         }
     }
 

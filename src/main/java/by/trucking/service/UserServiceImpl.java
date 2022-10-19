@@ -82,25 +82,44 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean check(User user) {
+    public boolean checkLogin(User user) {
         try (Connection connection = ConnectionDB.getConnect();
              PreparedStatement ps = connection.prepareStatement(
-                     "SELECT * FROM users WHERE login  = ?"
+                     "SELECT login FROM users WHERE login  = ?"
              )) {
-
             ps.setString(1, user.getLogin());
             ResultSet rs = ps.executeQuery();
 
-
             if (rs.next()) { // true, if something was found. false, if nothing
-                    System.out.println("пользователь уже есть (userserviseimpl)"); //выводит в консоль
+                System.out.println("пользователь уже есть (userserviseimpl)"); //выводит в консоль
                 return true;
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return false;
     }
 
+    @Override
+    public boolean checkPassword(User user) {
+        try (Connection connection = ConnectionDB.getConnect();
+             PreparedStatement ps = connection.prepareStatement(
+                     "SELECT login,password FROM users WHERE login  = ?"
+             )) {
+            ps.setString(1, user.getLogin());
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            String password = rs.getString("password");
+
+            if (user.getPassword().equals(password)) {
+                System.out.println("Добро пожаловать, " + user.getLogin()); //выводит в консоль
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+
+
+    }
 }
