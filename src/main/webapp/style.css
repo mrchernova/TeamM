@@ -1,0 +1,35 @@
+body {
+    margin: 20px;
+    font-family: Calibri;
+}
+
+table {
+    /*border: 1px solid black;*/
+    /*border-collapse: collapse;*/
+    padding-top: 25px;
+}
+
+th, td {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+table.center {
+    margin-left: auto;
+    margin-right: auto;
+
+}
+table.userForm{
+
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid gray;
+    border-collapse: collapse;
+
+}
+
+
+.width {
+    width: 180px;
+}

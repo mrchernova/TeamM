@@ -97,7 +97,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'Продукты',300.0,'Минск','Витебск',600.00,1,0),(2,'Шкаф',150.0,'Гомель','Гродно',250.00,2,0),(3,'Диван',350.0,'Гомель','Минск',200.00,3,0),(4,'Стол',16.0,'Брест','Могилев',160.00,2,2);
+INSERT INTO `orders` VALUES (1,'Продукты',300.0,'Минск','Витебск',600.00,1,0),(2,'Шкаф',150.0,'Гомель','Гродно',250.00,2,0),(3,'Диван',350.0,'Гомель','Минск',200.01,3,0),(4,'Стол',16.0,'Брест','Могилев',160.00,2,2);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,8 +211,9 @@ CREATE TABLE `users` (
   `login` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `role_id` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `login_UNIQUE` (`login`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,7 +222,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'evroopt','1111',2),(2,'ikea','1111',2),(3,'ami','1111',2),(4,'ip_perevozki','1111',3),(5,'ooo_dostavka','1111',3),(6,'administrator','1234',1);
+INSERT INTO `users` VALUES (1,'evroopt','1111',2),(2,'ikea','1111',2),(3,'ami','1111',2),(4,'ip_perevozki','1111',3),(5,'ooo_dostavka','1111',3),(6,'administrator','1234',1),(7,'new','new',3),(9,'1','1',3),(10,'2','2',3);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -234,4 +235,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-13 21:45:51
+-- Dump completed on 2022-10-15 21:32:21

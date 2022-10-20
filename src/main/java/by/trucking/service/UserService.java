@@ -19,4 +19,7 @@ public interface UserService {
     List<User> getByLogin();
 
     List<User> getByRole();
+
+    boolean checkLogin(User user);
+    boolean checkPassword(User user);
 }

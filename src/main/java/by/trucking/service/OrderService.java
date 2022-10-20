@@ -21,7 +21,7 @@ public interface OrderService {
 
     List<Order> getByWeight(String weight);
 
-    List<Order> getByDeparture(String daparture);
+    List<Order> getByDeparture(String departure);
 
     List<Order> getByDestination(String destination);
 }
