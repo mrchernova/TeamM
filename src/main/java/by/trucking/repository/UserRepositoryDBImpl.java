@@ -111,11 +111,11 @@ public class UserRepositoryDBImpl implements UserRepository {
         return null;
     }
 
-    @Override
-    public boolean checkLogin(User user) {
-        return false;
-    }
-    public boolean checkPassword(User user) {
-        return false;
-    }
+//    @Override
+//    public boolean checkLogin(User user) {
+//        return false;
+//    }
+//    public boolean checkPassword(User user) {
+//        return false;
+//    }
 }

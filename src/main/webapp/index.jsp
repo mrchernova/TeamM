@@ -14,12 +14,9 @@
 <fieldset>
     <legend>MENU</legend>
 
-    <a href='<c:url value="/registration" />'>Register</a> | <a href='<c:url value="/login" />'>Login</a>
+    <a href='<c:url value="/registration" />'>Registration</a> | <a href='<c:url value="/login" />'>Login</a>
 
 </fieldset>
-
-
-
 
 
 </body>

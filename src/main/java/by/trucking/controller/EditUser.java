@@ -54,7 +54,7 @@ public class EditUser extends HttpServlet {
             User user = new User(id, password);
             us.edit(user);
 
-            response.sendRedirect(request.getContextPath() + "/index");
+            response.sendRedirect(request.getContextPath() + "/verifiedUser");
 
         }catch (Exception e) {
             e.printStackTrace();

@@ -20,7 +20,7 @@ public interface UserRepository {
 
     List<User> getByRole();
 
-    boolean checkLogin(User user);
-    boolean checkPassword(User user);
+//    boolean checkLogin(User user);
+//    boolean checkPassword(User user);
 
 }

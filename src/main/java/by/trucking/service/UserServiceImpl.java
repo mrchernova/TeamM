@@ -31,28 +31,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User edit(User user) {
-        // херня это все!!
-//        try (Connection connection = ConnectionDB.getConnect();
-//             PreparedStatement ps = connection.prepareStatement(
-//                     "SELECT * FROM users WHERE login  = ?"
-//             )) {
-//
-//            ps.setString(1, user.getLogin());
-//            ResultSet rs = ps.executeQuery();
-//
-//            // rs.next() должкн возвращать true, если из запроса что-нибудь было выведено
-//            // иначе false
-//             if (rs.next()) {
-//                System.out.println("userserviseimpl говорит, что не может добавить user, тк такой логинуже есть");
-//                System.out.println("решение: сначала удалить. Но нет");
-//
-//                return userRepository.edit(null);
-//            }
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        System.out.println("user--- service--- " + user);
         return userRepository.edit(user);
     }
 

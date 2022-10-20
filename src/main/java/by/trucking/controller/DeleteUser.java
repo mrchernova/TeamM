@@ -23,7 +23,7 @@ public class DeleteUser extends HttpServlet {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
             us.delete(id);
-            response.sendRedirect(request.getContextPath() + "/index");
+            response.sendRedirect(request.getContextPath() + "/verifiedUser");
         } catch (Exception e) {
             getServletContext().getRequestDispatcher("/notfound.jsp").forward(request, response);
         }

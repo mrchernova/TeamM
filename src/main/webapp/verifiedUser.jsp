@@ -13,12 +13,13 @@
 
 <fieldset>
     <legend>MENU</legend>
-    <form action='<c:url value="/verifiedUser" />' method="get">
-        <input type="submit" value="All users" >
-    </form>
-    <br>
+<%--    <form action='<c:url value="/verifiedUser" />' method="get">--%>
+<%--        <input type="submit" value="All users" >--%>
+<%--        <p>User: </p>--%>
+<%--    </form>--%>
+<%--    <br>--%>
 
-    <a href='<c:url value="/registration" />'>Register</a> | <a href='<c:url value="/login" />'>Login</a>
+    <a href='<c:url value="/registration" />'>Registration</a> | <a href='<c:url value="/login" />'>Login</a>
 
 </fieldset>
 
