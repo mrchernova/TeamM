@@ -17,8 +17,8 @@ public class ApplicationDemo {
             DAO<Engine, String> engineDAO = new EngineDAO(factory);
 
             final Engine engine = new Engine();
-            engine.setModel("engine_model_03");
-            engine.setPower(12345);
+            engine.setModel("engine_model_04");
+            engine.setPower(12344);
 
             engineDAO.create(engine);
 
@@ -36,6 +36,11 @@ public class ApplicationDemo {
 //            engineDAO.delete(new Engine("engine_model_03", 54321));
 //
 //            System.out.println("Deleted(empty obj) : " + engineDAO.read("engine_model_03"));
+
+
+        }catch (NoClassDefFoundError e){
+            System.out.println("------------------");
+            e.printStackTrace();
         } finally {
             if (factory != null) {
                 factory.close();

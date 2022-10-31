@@ -14,6 +14,7 @@ public class EngineDAO implements DAO<Engine, String> {
     private final SessionFactory factory;
 
     public EngineDAO(@NotNull final SessionFactory factory) {
+
         this.factory = factory;
     }
 
