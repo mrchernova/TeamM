@@ -45,14 +45,14 @@ public class Registration extends HttpServlet {
             if (us.checkLogin(user)) {
                 PrintWriter out = response.getWriter();
                 out.print("Такой логин уже существует");
-                out.print("<p><a href='http://localhost:8080/part_2_war_exploded/registration'>Придумать новый логин</a></p>");
+                out.print("<p><a href='http://localhost:8080/registration'>Придумать новый логин</a></p>");
                 out.close();
             } else {
                 us.save(user);
                 //response.sendRedirect(request.getContextPath() + "/verifiedUser");
                 PrintWriter out = response.getWriter();
                 out.print("<p>Вы успешно зарегистрировались</p>");
-                out.print("<p><a href='http://localhost:8080/part_2_war_exploded/verifiedUser'>Получить список всех пользователей</a></p>");
+                out.print("<p><a href='http://localhost:8080/verifiedUser'>Получить список всех пользователей</a></p>");
 
                 out.close();
             }

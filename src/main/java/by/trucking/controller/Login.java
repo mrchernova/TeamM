@@ -42,19 +42,19 @@ public class Login extends HttpServlet {
                 if(us.checkPassword(user)){
                     PrintWriter out = response.getWriter();
                     out.print("<p>Добро пожаловать, " + user.getLogin() + "</p>");
-                    out.print("<p><a href='http://localhost:8080/part_2_war_exploded/verifiedUser'>Получить список всех пользователей</a></p>");
+                    out.print("<p><a href='http://localhost:8080/verifiedUser'>Получить список всех пользователей</a></p>");
                     out.close();
                 }else {
                     PrintWriter out = response.getWriter();
                     out.print("<p>Неверный логин или пароль</p>");
-                    out.print("<p><a href='http://localhost:8080/part_2_war_exploded/login'>Ввести логин/пароль еще раз</a></p>");
+                    out.print("<p><a href='http://localhost:8080/login'>Ввести логин/пароль еще раз</a></p>");
                     out.close();
                 }
             }else{
                // response.sendRedirect(request.getContextPath() + "/login");
                 PrintWriter out = response.getWriter();
                 out.print("<p>Неверный логин или пароль</p>");
-                out.print("<p><a href='http://localhost:8080/part_2_war_exploded/login'>Ввести логин/пароль еще раз</a></p>");
+                out.print("<p><a href='http://localhost:8080/login'>Ввести логин/пароль еще раз</a></p>");
                 out.close();
             }
 
