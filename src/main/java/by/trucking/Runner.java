@@ -7,7 +7,7 @@ import by.trucking.dao.EngineDAO;
 import by.trucking.model.Engine;
 
 
-public class ApplicationDemo {
+public class Runner {
     public static void main(String[] args) {
 
         SessionFactory factory = null;
