@@ -1,13 +1,16 @@
 package by.trucking.model;
 
-import lombok.*;
+import lombok.Data;
+import javax.persistence.*;
 
 @Data
-@ToString
-@EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
+@Table(name = "engines")
 public class Engine {
+
+    @Id
+    @Column (name = "model")
     private String model;
+    @Column (name = "power")
     private int power;
 }
